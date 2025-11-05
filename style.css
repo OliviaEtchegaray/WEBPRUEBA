@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@900&display=swap');
+
+body {
+  margin: 0;
+  background-color: white;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Helvetica Black", Helvetica, Arial, sans-serif;
+}
+/* 🔴 Cinta superior con duplicado para bucle continuo */
+.titulo-scroll {
+  position: fixed;
+  top: 2px;
+  width: 100%;
+  overflow: hidden;
+  height: 50px;
+  pointer-events: none;
+  z-index: 100;
+}
+
+
+.scroll-contenido {
+  display: inline-block;
+  white-space: nowrap;
+  animation: moverCinta 15s linear infinite;
+}
+
+.scroll-contenido span {
+  font-size: 4rem;
+  color: red;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+  padding-right: 4rem;
+}
+
+@keyframes moverCinta {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes correrTexto {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* 🌟 Estrella */
+.estrella {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background-image: url('estrella.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: translate(-50%, -50%);
+  animation: flotar 6s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -52%) scale(1.03); }
+}
+
+/* 📁 Carpetas */
+.carpeta {
+  position: absolute;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.carpeta img {
+  width: 80px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.carpeta p {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: black;
+  font-weight: 600;
+  user-select: none;
+}
+
+.carpeta:hover {
+  transform: scale(1.1);
+}
+
+/* 📍 Posiciones exactas estilo “aleatorio” */
+#carpeta1 { top: 20%; right: 10%; }
+#carpeta2 { bottom: 15%; right: 10%; }
+#carpeta3 { bottom: 18%; left: 47%; transform: translateX(-50%); }
+#carpeta4 { bottom: 20%; left: 8%; }
+#carpeta5 { top: 30%; left: 20%; }
+/* 🔹 Todas las secciones ocultas por defecto (excepto inicio) */
+/* Todas las secciones (incluyendo inicio) ocupan 100% y con transición */
+section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
+    z-index: 0;
+    background: white;
+    padding: 40px;
+  }
+  
+  /* Sección visible */
+  section.activa {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Inicio visible al cargar */
+  #inicio {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+  }
+  
+  /* Ocultar inicio con fade */
+  #inicio.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* === Barra de scroll moderna === */
+::-webkit-scrollbar {
+  width: 10px;              /* ancho del scroll vertical */
+  height: 10px;             /* alto del scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(40, 40, 40, 0.4); /* color del fondo de la pista */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #DECCA4, #E17777);
+  border-radius: 10px;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #E17777, #DECCA4);
+  transform: scale(1.1);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* === Suavidad al hacer scroll === */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Vibración carpeta */
+@keyframes vibrar {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(-3px,3px); }
+  40% { transform: translate(3px,-3px); }
+  60% { transform: translate(-3px,3px); }
+  80% { transform: translate(3px,-3px); }
+  100% { transform: translate(0,0); }
+}
+.vibrando { animation: vibrar 1.4s linear 3; }
+
+/* Overlay "COMING S00N" */
+#overlay-comingsoon {
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  backdrop-filter: blur(6px);
+  background-color: rgba(255,0,0,0.3);
+  display: flex; align-items:center; justify-content:center;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.3s ease;
+}
+#overlay-comingsoon.activo { opacity:1; }
+#overlay-comingsoon h1 {
+  color:white; font-size:3rem; text-align:center;
+  text-shadow:0 0 10px red, 0 0 20px black;
+  margin:0; padding:10px;
+}
+
+/* Vibración pantalla */
+@keyframes vibrar-pantalla {
+  0% { transform: translate(0,0); }
+  20% { transform: translate(-5px,5px); }
+  40% { transform: translate(5px,-5px); }
+  60% { transform: translate(-5px,5px); }
+  80% { transform: translate(5px,-5px); }
+  100% { transform: translate(0,0); }
+}
+.vibrando-pantalla { animation: vibrar-pantalla 0.5s linear 1; }
+
+
+  /* ========================================================= */
+/* === RESPONSIVE BREAKPOINTS ============================== */
+/* ========================================================= */
+
+/* 🖥️ Desktop grandes (1440px o más) */
+@media (min-width: 1440px) {
+  .carpeta img { width: 180px; }
+  .scroll-contenido { font-size: 2.2rem; }
+}
+
+
+/* 💻 Laptops y monitores medianos (1024px a 1439px) */
+@media (max-width: 1439px) and (min-width: 1024px) {
+  .carpeta img { width: 100px; }
+  .scroll-contenido { font-size: 1.8rem; }
+  .estrella { width: 500px; height: 500px; align-items: center;}
+    #carpeta1 { top: 15%; }
+  #carpeta2 { top: 65%; }
+  #carpeta3 { top: 65%; left: 40%;  }
+  #carpeta4 { top: 65%;  }
+  #carpeta5 { bottom: 5%; }
+}
+
+/* 📱 Tablets (768px a 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .scroll-contenido { font-size: 1.5rem; top: 3%; }
+  .estrella { width: 400px; height: 400px; }
+  .carpeta img { width: 90px; }
+  .carpeta p { font-size: 1rem; }
+
+  /* reposicionamiento más compacto */
+  #carpeta1 { top: 15%;  }
+  #carpeta2 { top: 45%;  }
+  #carpeta3 { top: 65%;  }
+  #carpeta4 { top: 35%;  }
+  #carpeta5 { top: 15%;  }
+}
+
+/* 📲 Móviles (480px a 767px) */
+@media (max-width: 767px) and (min-width: 480px) {
+  .scroll-contenido { font-size: 1.2rem; top: 2%; }
+  .estrella { width: 500px; height: 500px; }
+  .carpeta img { width: 90px; }
+  .carpeta p { font-size: 0.9rem; }
+
+  /* mover carpetas al centro */
+  #carpeta1 { top: 20%;  }
+  #carpeta2 { top: 40%;  transform: translateX(-50%); }
+  #carpeta3 { top: 60%; transform: translateX(-50%); }
+  #carpeta4 { top: 80%;  transform: translateX(-50%); }
+  #carpeta5 { bottom: 10%; transform: translateX(-50%); }
+}
+
+/* 📞 Móviles pequeños (<480px) */
+@media (max-width: 479px) {
+  .scroll-contenido { font-size: 1rem; top: 1%; }
+  .estrella { width: 400px; height: 400px; }
+  .carpeta img { width: 85px; }
+  .carpeta p { font-size: 0.8rem; }
+
+  #carpeta1 { top: 15%;  transform: translateX(-50%); }
+  #carpeta2 { top: 35%; transform: translateX(-50%); }
+  #carpeta3 { top: 55%;  transform: translateX(-50%); }
+  #carpeta4 { top: 75%;  transform: translateX(-50%); }
+  #carpeta5 { bottom: 5%;  transform: translateX(-50%); }
+}

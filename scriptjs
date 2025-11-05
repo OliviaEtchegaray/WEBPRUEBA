@@ -1,0 +1,97 @@
+const estrella = document.querySelector('.estrella');
+let mouseX = 0, mouseY = 0;
+let centerX = window.innerWidth / 2;
+let centerY = window.innerHeight / 2;
+
+// Movimiento líquido
+document.addEventListener('mousemove', (e) => {
+  mouseX = (e.clientX - centerX) / centerX;
+  mouseY = (e.clientY - centerY) / centerY;
+
+  const rotateX = mouseY * 10;
+  const rotateY = mouseX * -10;
+  const scaleX = 1 + mouseX * 0.05;
+  const scaleY = 1 - mouseY * 0.05;
+
+  estrella.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scaleX}, ${scaleY})`;
+});
+
+document.addEventListener('mouseleave', () => {
+  estrella.style.transform = `scale(1)`;
+});
+
+window.addEventListener('resize', () => {
+  centerX = window.innerWidth / 2;
+  centerY = window.innerHeight / 2;
+});
+
+const inicio = document.getElementById('inicio');
+const secciones = document.querySelectorAll('section');
+
+// Función para mostrar secciones
+function mostrarSeccion(id) {
+  inicio.classList.add('fade-out'); // oculta inicio
+
+  setTimeout(() => {
+    secciones.forEach(sec => {
+      if(sec.id === id) sec.classList.add('activa');
+      else sec.classList.remove('activa');
+    });
+  }, 800); // coincide con la transición CSS
+}
+
+// Carpetas clickeables
+document.getElementById('carpeta2').onclick = () => mostrarSeccion('fotos');
+document.getElementById('carpeta5').onclick = () => mostrarSeccion('museo');
+
+document.addEventListener("DOMContentLoaded", () => {
+    const inicio = document.getElementById('inicio');
+    const secciones = document.querySelectorAll('section');
+  
+    function mostrarSeccion(id) {
+      inicio.classList.add('fade-out');
+  
+      setTimeout(() => {
+        secciones.forEach(sec => {
+          if(sec.id === id) sec.classList.add('activa');
+          else sec.classList.remove('activa');
+        });
+      }, 800); // coincide con la transición
+    }
+  
+    // Carpetas con acción de secciones
+    document.getElementById('carpeta2').onclick = () => mostrarSeccion('fotos');
+    document.getElementById('carpeta5').onclick = () => mostrarSeccion('museo');
+  
+    // Carpetas externas
+    ['carpeta1','carpeta3'].forEach(id => {
+      const el = document.getElementById(id);
+      const link = el.dataset.link;
+      if(link){
+        el.onclick = () => window.open(link, '_blank');
+      }
+    });
+  
+    // Carpeta 4 sin acción
+    document.getElementById('carpeta4').onclick = () => console.log("ESTRELLDAHERO aún sin acción asignada.");
+  });
+  // Carpeta4 → solo vibra
+const carpeta4 = document.getElementById('carpeta4');
+carpeta4.addEventListener('click', () => {
+  carpeta4.classList.add('vibrando');
+  setTimeout(() => carpeta4.classList.remove('vibrando'), 1200);
+});
+
+// Carpeta1 → vibración pantalla + overlay "COMING S00N :3"
+const carpeta1 = document.getElementById('carpeta1');
+const overlay = document.getElementById('overlay-comingsoon');
+
+carpeta1.addEventListener('click', () => {
+  document.body.classList.add('vibrando-pantalla');
+  overlay.classList.add('activo');
+
+  setTimeout(() => {
+    document.body.classList.remove('vibrando-pantalla');
+    overlay.classList.remove('activo');
+  }, 1500);
+});
